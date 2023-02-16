@@ -5,20 +5,27 @@ import "forge-std/Test.sol";
 import "../src/Counter.sol";
 
 contract CounterTest is Test {
-    Counter public counter;
-
-    function setUp() public {
-        counter = new Counter();
-        counter.setNumber(0);
-    }
-
-    function testIncrement() public {
-        counter.increment();
-        assertEq(counter.number(), 1);
-    }
-
-    function testSetNumber(uint256 x) public {
-        counter.setNumber(x);
-        assertEq(counter.number(), x);
-    }
+ Counter counter;
+ function setUp() public {
+    counter = new Counter(10);
+ }   
+ function testGetCount() public {
+    int value = counter.getCount();
+    assertEq(value,10);
+    emit log_named_int("the value is: ",value);
+ }
+ function testIncrement() public {
+    counter.incrementCounter();
+    int value = counter.getCount();
+    
+    assertEq(value,11);
+    emit log_named_int("value is: ",value);
+ }
+ function testDecrement() public {
+    counter.decrementCounter();
+    int value = counter.getCount();
+    assertEq(value,9);
+    emit log_named_int("value is: "
+    , value);
+ }
 }
